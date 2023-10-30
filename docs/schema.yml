@@ -1,0 +1,325 @@
+openapi: 3.0.3
+info:
+  title: Salon Booking API
+  version: 1.0.0
+  description: App to book salon anointments
+paths:
+  /api/auth/:
+    post:
+      operationId: auth_create
+      description: |-
+        Takes a set of user credentials and returns an access and refresh JSON web
+        token pair to prove the authentication of those credentials.
+      tags:
+      - auth
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CustomTokenObtainPairRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/CustomTokenObtainPairRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/CustomTokenObtainPairRequest'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JWTAuthResponse'
+          description: ''
+  /api/auth/refresh/:
+    post:
+      operationId: auth_refresh_create
+      description: |-
+        Takes a refresh type JSON web token and returns an access type JSON web
+        token if the refresh token is valid.
+      tags:
+      - auth
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TokenRefreshRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TokenRefreshRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/TokenRefreshRequest'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenRefresh'
+          description: ''
+  /api/auth/register/:
+    post:
+      operationId: auth_register_create
+      description: |-
+        Register new user in the system
+
+        You need to provide `email`, `first_name`, `last_name`, `password_repeated`
+      tags:
+      - auth
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SignUpRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/SignUpRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/SignUpRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      - {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JWTAuthResponse'
+          description: ''
+  /api/auth/verify/:
+    post:
+      operationId: auth_verify_create
+      description: |-
+        Takes a token and indicates if it is valid.  This view provides no
+        information about a token's fitness for a particular use.
+      tags:
+      - auth
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TokenVerifyRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TokenVerifyRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/TokenVerifyRequest'
+        required: true
+      responses:
+        '200':
+          description: No response body
+  /api/salon/items/:
+    get:
+      operationId: salon_items_list
+      parameters:
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      - name: page_size
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      tags:
+      - services
+      security:
+      - jwtAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedBaseServiceList'
+          description: ''
+  /api/salon/items/{id}/:
+    get:
+      operationId: salon_items_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this service.
+        required: true
+      tags:
+      - services
+      security:
+      - jwtAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Service'
+          description: ''
+components:
+  schemas:
+    BaseService:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        title:
+          type: string
+          maxLength: 255
+        price:
+          type: integer
+          maximum: 2147483647
+          minimum: 0
+        duration:
+          type: string
+      required:
+      - duration
+      - id
+      - price
+      - title
+    CustomTokenObtainPairRequest:
+      type: object
+      properties:
+        email:
+          type: string
+          writeOnly: true
+          minLength: 1
+        password:
+          type: string
+          writeOnly: true
+          minLength: 1
+      required:
+      - email
+      - password
+    JWTAuthResponse:
+      type: object
+      properties:
+        access:
+          type: string
+        refresh:
+          type: string
+      required:
+      - access
+      - refresh
+    PaginatedBaseServiceList:
+      type: object
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/BaseService'
+    Service:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        title:
+          type: string
+          maxLength: 255
+        price:
+          type: integer
+          maximum: 2147483647
+          minimum: 0
+        duration:
+          type: string
+        images:
+          type: array
+          items:
+            $ref: '#/components/schemas/ServiceImage'
+      required:
+      - duration
+      - id
+      - images
+      - price
+      - title
+    ServiceImage:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        image:
+          type: string
+          format: uri
+      required:
+      - id
+      - image
+    SignUpRequest:
+      type: object
+      description: Create new user when sign up
+      properties:
+        email:
+          type: string
+          format: email
+          minLength: 1
+          title: Email address
+          maxLength: 255
+        first_name:
+          type: string
+          minLength: 1
+          maxLength: 150
+        last_name:
+          type: string
+          minLength: 1
+          maxLength: 150
+        password:
+          type: string
+          writeOnly: true
+          minLength: 1
+      required:
+      - email
+      - first_name
+      - last_name
+      - password
+    TokenRefresh:
+      type: object
+      properties:
+        access:
+          type: string
+          readOnly: true
+      required:
+      - access
+    TokenRefreshRequest:
+      type: object
+      properties:
+        refresh:
+          type: string
+          writeOnly: true
+          minLength: 1
+      required:
+      - refresh
+    TokenVerifyRequest:
+      type: object
+      properties:
+        token:
+          type: string
+          writeOnly: true
+          minLength: 1
+      required:
+      - token
+  securitySchemes:
+    jwtAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
