@@ -14,7 +14,7 @@ update: ## Update dependencies
 	cd backend && poetry update &&\
 	cd frontend && yarn upgrade
 dev: ## Start docker compose stack for development
-	docker compose -f compose.dev.yml  --env-file .env up db -d
+	docker compose -f compose.dev.yml  --env-file .env up db crawler -d
 db: ## Make migrations + Migrate
 	poetry -C backend run python ./backend/manage.py makemigrations && poetry -C backend run ./backend/manage.py migrate
 lint: ## Lint BE+FE
@@ -33,7 +33,7 @@ be_shell: ## start be shell
 be_admin: ## Generate admin file for specific app `make be_admin app=items`
 	cd backend && python ./manage.py admin_generator $(app)
 erd: ## Use SchemaCrawler to generate diff compatible
-	docker compose -f compose.dev.yml up db crawler -d && \
+	docker compose -f compose.dev.yml --env-file .env up db crawler -d && \
 	docker compose exec crawler \
 	/opt/schemacrawler/bin/schemacrawler.sh \
 	--server postgresql \

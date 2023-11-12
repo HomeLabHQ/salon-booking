@@ -2,6 +2,15 @@
 
 [![LinkedIn][linkedin-shield]][linkedin-url]
 <br />
+[![time spent](https://wakatime.com/badge/user/b235aad2-892a-4e83-b8c3-a6cc36bc4cf4/project/5b26fb0f-0fd5-40ad-abc6-b2a2199dd61b.svg)](https://wakatime.com/badge/user/b235aad2-892a-4e83-b8c3-a6cc36bc4cf4/project/5b26fb0f-0fd5-40ad-abc6-b2a2199dd61b)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=HomeLabHQ_salon-booking&metric=coverage)](https://sonarcloud.io/summary/new_code?id=HomeLabHQ_salon-booking)
+[![Technical Debt](https://sonarcloud.io/api/project_badges/measure?project=HomeLabHQ_salon-booking&metric=sqale_index)](https://sonarcloud.io/summary/new_code?id=HomeLabHQ_salon-booking)
+[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=HomeLabHQ_salon-booking&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=HomeLabHQ_salon-booking)
+[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=HomeLabHQ_salon-booking&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=HomeLabHQ_salon-booking)
+[![Duplicated Lines (%)](https://sonarcloud.io/api/project_badges/measure?project=HomeLabHQ_salon-booking&metric=duplicated_lines_density)](https://sonarcloud.io/summary/new_code?id=HomeLabHQ_salon-booking)
+[![Build](https://github.com/HomeLabHQ/expiration-tracker/actions/workflows/build.yml/badge.svg)](https://github.com/HomeLabHQ/expiration-tracker/actions/workflows/build.yml)
+[![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
+<br />
 
 <div align="center">
   <h3 align="center">Salon booking</h3>
@@ -12,7 +21,7 @@
   <ol>
     <li>
       <a href="#about-the-project">About The Project</a>
-      <a href="#demo">Demo</a>
+      <a href="#db-schema">DB Schema</a>
       <ul>
         <li><a href="#built-with">Built With</a></li>
       </ul>
@@ -33,20 +42,6 @@
 ## About The Project
 
 Main goal of project is to provide page for local salon to easy and efficient book appointments
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-## Demo
-
-To try this out access demo instance at [Demo]
-with credentials:
-
-> NOTE: Demo not persistent and destroyed on each deployment
-
-```js
-email:test@example.com
-password:Test12345
-```
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
