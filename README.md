@@ -50,6 +50,10 @@ password:Test12345
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
+## DB Schema
+
+![DB](./docs/db.svg)
+
 ### Built With
 
 [![Django][Django]][Django-url]

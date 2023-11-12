@@ -1,5 +1,4 @@
 from django.db import models
-
 from salon_booking.models import TitleModel
 
 
