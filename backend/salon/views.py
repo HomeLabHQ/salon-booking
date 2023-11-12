@@ -1,10 +1,10 @@
 from django_filters.rest_framework import DjangoFilterBackend
 from drf_spectacular.utils import extend_schema
 from rest_framework import mixins, viewsets
+from salon_booking.mixins import ListSerializerMixin
 
 from salon.models import Service
 from salon.serializers import BaseServiceSerializer, ServiceSerializer
-from salon_booking.mixins import ListSerializerMixin
 
 
 @extend_schema(tags=["services"])

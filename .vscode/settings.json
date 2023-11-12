@@ -8,6 +8,16 @@
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "[python]": {
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+      "source.fixAll": true,
+      "source.organizeImports": true
+    },
     "editor.defaultFormatter": "charliermarsh.ruff"
-  }
+  },
+  "sonarlint.connectedMode.project": {
+    "connectionId": "VScode",
+    "projectKey": "HomeLabHQ_salon-booking"
+  },
+  "python.testing.promptToConfigure": true
 }

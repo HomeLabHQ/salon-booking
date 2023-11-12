@@ -1,0 +1,4 @@
+{
+  "recommendations": ["charliermarsh.ruff", "usernamehw.errorlens"],
+  "disabled": ["ms-python.flake8"]
+}

@@ -22,6 +22,7 @@ class TitleModel(models.Model):
     Model with extra ``title`` field that is required
 
     """
+
     title = models.CharField(max_length=255)
 
     class Meta:
